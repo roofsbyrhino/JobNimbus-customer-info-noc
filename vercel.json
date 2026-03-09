@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 60
+    }
+  },
+  "env": {
+    "JOBNIMBUS_API_KEY": "@jobnimbus_api_key",
+    "BATCHDATA_API_KEY": "@batchdata_api_key",
+    "WEBHOOK_SECRET": "@webhook_secret"
+  }
+}
