@@ -5,7 +5,7 @@
  * Workflow:
  *   1. Validate the incoming payload
  *   2. Extract property address from the new lead/job
- *   3. Pull property data from BatchData (or mock)
+ *   3. Pull property data from PropertyRadar (or mock)
  *   4. Generate the Florida NOC PDF
  *   5. Upload the PDF back to the JobNimbus job file
  *   6. Add a note to the job confirming the NOC was generated
@@ -14,7 +14,7 @@
 require('dotenv').config();
 
 const { getContact, getJob, extractAddress, uploadDocument, addNote } = require('../lib/jobnimbus');
-const { getPropertyData } = require('../lib/batchdata');
+const { getPropertyData } = require('../lib/propertyradar');
 const { generateNOC } = require('../lib/noc-generator');
 
 /**

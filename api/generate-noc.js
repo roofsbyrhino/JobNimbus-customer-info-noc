@@ -14,7 +14,7 @@
 require('dotenv').config();
 
 const { getJob, extractAddress, uploadDocument, addNote } = require('../lib/jobnimbus');
-const { getPropertyData } = require('../lib/batchdata');
+const { getPropertyData } = require('../lib/propertyradar');
 const { generateNOC } = require('../lib/noc-generator');
 
 module.exports = async function handler(req, res) {
