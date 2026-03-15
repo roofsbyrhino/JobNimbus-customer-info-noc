@@ -8,6 +8,7 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
     "axios": "^1.7.2",
     "exceljs": "^4.4.0",
     "fontkit": "^2.0.4",
