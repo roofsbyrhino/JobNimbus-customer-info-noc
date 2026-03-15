@@ -5,9 +5,20 @@
       "maxDuration": 60
     }
   },
+  "crons": [
+    {
+      "path":     "/api/stalled-jobs-cron",
+      "schedule": "0 12 * * 1-5"
+    }
+  ],
   "env": {
-    "JOBNIMBUS_API_KEY": "@jobnimbus_api_key",
-    "BATCHDATA_API_KEY": "@batchdata_api_key",
-    "WEBHOOK_SECRET": "@webhook_secret"
+    "JOBNIMBUS_API_KEY":    "@jobnimbus_api_key",
+    "BATCHDATA_API_KEY":    "@batchdata_api_key",
+    "WEBHOOK_SECRET":       "@webhook_secret",
+    "RESEND_API_KEY":       "@resend_api_key",
+    "CRON_SECRET":          "@cron_secret",
+    "OPS_MANAGER_EMAIL":    "@ops_manager_email",
+    "SALES_MANAGER_EMAIL":  "@sales_manager_email",
+    "COO_EMAIL":            "@coo_email"
   }
 }
