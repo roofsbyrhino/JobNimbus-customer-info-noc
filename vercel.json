@@ -19,6 +19,7 @@
     "CRON_SECRET":          "@cron_secret",
     "OPS_MANAGER_EMAIL":    "@ops_manager_email",
     "SALES_MANAGER_EMAIL":  "@sales_manager_email",
-    "COO_EMAIL":            "@coo_email"
+    "COO_EMAIL":            "@coo_email",
+    "LEAD_EMAIL":           "@lead_email"
   }
 }
