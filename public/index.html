@@ -283,6 +283,19 @@
     .prod-cat-name { font-size: 13px; font-weight: 800; margin-bottom: 3px; color: var(--dark); }
     .prod-cat-desc { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
 
+    /* Profile tabs */
+    .profile-row { margin-bottom: 10px; }
+    .profile-row-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .7px; color: var(--muted); margin-bottom: 5px; }
+    .profile-tabs { display: flex; gap: 5px; flex-wrap: wrap; }
+    .profile-tab {
+      padding: 5px 10px; border-radius: 6px;
+      background: var(--light); border: 2px solid var(--border);
+      font-size: 11px; font-weight: 700; color: var(--muted);
+      cursor: pointer; transition: all .15s; white-space: nowrap;
+    }
+    .profile-tab:hover  { border-color: #ccc; color: var(--dark); }
+    .profile-tab.active { background: var(--dark); border-color: var(--dark); color: #fff; }
+
     .prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 7px; }
     .swatch-card {
       cursor: pointer; border-radius: var(--rad-s);
@@ -586,6 +599,10 @@
           <div class="cat-list" id="catList"></div>
           <div class="prod-cat-name" id="prodCatName"></div>
           <div class="prod-cat-desc" id="prodCatDesc"></div>
+          <div class="profile-row" id="profileRow" style="display:none;">
+            <div class="profile-row-label">Profile</div>
+            <div class="profile-tabs" id="profileTabs"></div>
+          </div>
           <div class="prod-grid" id="prodGrid"></div>
           <div class="opacity-ctrl">
             <div class="opa-label">
@@ -633,20 +650,20 @@
                 <label class="f-lbl">Interested In</label>
                 <select class="f-inp" name="roofingType" id="frmProduct">
                   <option value="">Select type...</option>
-                  <optgroup label="── Englert Metal Panels ──">
-                    <option>Englert 1" Nail Strip Panel</option>
-                    <option>Englert 1.5" Snap-Lock w/ Clip</option>
-                    <option>Englert 1.5" Mechanical Seam</option>
+                  <optgroup label="Englert Metal Panels">
+                    <option value="Englert 1&quot; Nail Strip Panel">Englert 1" Nail Strip</option>
+                    <option value="Englert 1.5&quot; Snap-Lock w/ Clip">Englert 1.5" Snap-Lock w/ Clip</option>
+                    <option value="Englert 1.5&quot; Mechanical Seam">Englert 1.5" Mechanical Seam</option>
                   </optgroup>
-                  <optgroup label="── GAF Shingles ──">
-                    <option>GAF Timberline HDZ</option>
+                  <optgroup label="GAF Shingles">
+                    <option value="GAF Timberline HDZ">GAF Timberline HDZ</option>
                   </optgroup>
-                  <optgroup label="── Westlake Concrete Tile ──">
-                    <option>Westlake Okeechobee (Flat Tile)</option>
-                    <option>Westlake Lake Wales (Low S-Tile)</option>
-                    <option>Westlake Pompano (S-Tile)</option>
+                  <optgroup label="Westlake Concrete Tile">
+                    <option value="Westlake Okeechobee (Flat Tile)">Westlake Okeechobee — Flat Tile</option>
+                    <option value="Westlake Lake Wales (Low S-Tile)">Westlake Lake Wales — Low S-Tile</option>
+                    <option value="Westlake Pompano (S-Tile)">Westlake Pompano — S-Tile</option>
                   </optgroup>
-                  <option>Not sure — need consultation</option>
+                  <option value="consultation">Not sure — need consultation</option>
                 </select>
               </div>
               <div class="f-grp">
@@ -704,55 +721,58 @@
 <script>
 // ─────────────────────────────────────
 // PRODUCT CATALOG — Rhino Roofs actual products
+// Colors are shared across profiles within each system
 // ─────────────────────────────────────
-// Shared Englert color palette (all three panel systems use the same color line)
-const ENGLERT_COLORS_SEAM = [
-  { name: 'Charcoal Gray',  hex: '#4a4a52', pat: 'seam' },
-  { name: 'Dark Bronze',    hex: '#3d2b1f', pat: 'seam' },
-  { name: 'Galvalume',      hex: '#b8b8b8', pat: 'seam' },
-  { name: 'Slate Blue',     hex: '#3a5f8a', pat: 'seam' },
-  { name: 'Evergreen',      hex: '#2d5a27', pat: 'seam' },
-  { name: 'Burgundy',       hex: '#6e2535', pat: 'seam' },
-  { name: 'Polar White',    hex: '#e8e8e4', pat: 'seam' },
-  { name: 'Musket Gray',    hex: '#7a7a78', pat: 'seam' },
-  { name: 'Light Stone',    hex: '#c8b896', pat: 'seam' },
-  { name: 'Colonial Red',   hex: '#8b3535', pat: 'seam' },
+const ENGLERT_COLORS = [
+  { name: 'Charcoal Gray',  hex: '#4a4a52' },
+  { name: 'Dark Bronze',    hex: '#3d2b1f' },
+  { name: 'Galvalume',      hex: '#b8b8b8' },
+  { name: 'Slate Blue',     hex: '#3a5f8a' },
+  { name: 'Evergreen',      hex: '#2d5a27' },
+  { name: 'Burgundy',       hex: '#6e2535' },
+  { name: 'Polar White',    hex: '#e8e8e4' },
+  { name: 'Musket Gray',    hex: '#7a7a78' },
+  { name: 'Light Stone',    hex: '#c8b896' },
+  { name: 'Colonial Red',   hex: '#8b3535' },
+  { name: 'Ash Gray',       hex: '#8a8a88' },
+  { name: 'Medium Bronze',  hex: '#5a3818' },
 ];
-const ENGLERT_COLORS_STRIP = ENGLERT_COLORS_SEAM.map(c => ({ ...c, pat: 'corrugated' }));
+
+const WESTLAKE_COLORS = [
+  { name: 'Old Castle',      hex: '#7a5a45' },
+  { name: 'Desert Tan',      hex: '#c8a878' },
+  { name: 'Adobe',           hex: '#c8a060' },
+  { name: 'Weatherwood',     hex: '#8b7355' },
+  { name: 'Grey Slate',      hex: '#6b7280' },
+  { name: 'Mediterranean',   hex: '#b8401e' },
+  { name: 'Villa',           hex: '#4a3020' },
+  { name: 'Storm Gray',      hex: '#5a6472' },
+  { name: 'Terra Cotta',     hex: '#c05030' },
+  { name: 'Antique',         hex: '#8a7a68' },
+  { name: 'Boca Buff',       hex: '#d4b888' },
+  { name: 'Colonial Blend',  hex: '#6a4030' },
+];
 
 const CATALOG = [
-  // ── ENGLERT METAL ──
   {
-    id: 'englert-nail-strip',
-    cat: '1" Nail Strip Panel',
+    id: 'englert',
+    cat: 'Englert Metal Panels',
     mfg: 'Englert',
     mfgTag: 'Englert',
-    desc: 'Exposed fastener nail strip panel — economical, fast install, Florida NOA rated.',
-    colors: ENGLERT_COLORS_STRIP,
+    desc: 'Kynar 500 PVDF finish · Florida NOA rated · same colors across all profiles',
+    profiles: [
+      { id: 'nail-strip', name: '1" Nail Strip',          desc: 'Exposed fastener — economical, fast install', pat: 'corrugated' },
+      { id: 'snap-lock',  name: '1.5" Snap-Lock w/ Clip', desc: 'Concealed fastener with floating clip system', pat: 'seam' },
+      { id: 'mechanical', name: '1.5" Mechanical Seam',   desc: 'Field-seamed — strongest system, low-slope rated', pat: 'seam' },
+    ],
+    colors: ENGLERT_COLORS,
   },
-  {
-    id: 'englert-snap-lock',
-    cat: '1.5" Snap-Lock w/ Clip',
-    mfg: 'Englert',
-    mfgTag: 'Englert',
-    desc: 'Concealed fastener snap-lock panel with floating clip system. Clean look, no exposed screws.',
-    colors: ENGLERT_COLORS_SEAM,
-  },
-  {
-    id: 'englert-mechanical',
-    cat: '1.5" Mechanical Seam',
-    mfg: 'Englert',
-    mfgTag: 'Englert',
-    desc: 'Field-mechanically seamed panel — the strongest concealed fastener system for low-slope applications.',
-    colors: ENGLERT_COLORS_SEAM,
-  },
-  // ── GAF SHINGLES ──
   {
     id: 'gaf-hdz',
     cat: 'GAF Timberline HDZ',
     mfg: 'GAF',
     mfgTag: 'GAF',
-    desc: "America's #1 selling shingle. LayerLock technology — 130 mph wind rated, Lifetime warranty.",
+    desc: "America's #1 selling shingle · LayerLock technology · 130 mph wind rated · Lifetime warranty",
     colors: [
       { name: 'Charcoal',        hex: '#3d3d3d', pat: 'shingle-a' },
       { name: 'Pewter Gray',     hex: '#7a7a7a', pat: 'shingle-a' },
@@ -766,60 +786,20 @@ const CATALOG = [
       { name: 'Hunter Green',    hex: '#2d4a30', pat: 'shingle-a' },
       { name: 'Mission Brown',   hex: '#5a3820', pat: 'shingle-a' },
       { name: 'Birchwood',       hex: '#9a8a7a', pat: 'shingle-a' },
-    ]
-  },
-  // ── WESTLAKE CONCRETE TILE ──
-  {
-    id: 'westlake-okeechobee',
-    cat: 'Westlake Okeechobee',
-    mfg: 'Westlake Royal',
-    mfgTag: 'Westlake',
-    desc: 'Flat concrete tile profile — clean, modern look. Fire Class A, Florida approved.',
-    colors: [
-      { name: 'Old Castle',      hex: '#7a5a45', pat: 'tile' },
-      { name: 'Desert Tan',      hex: '#c8a878', pat: 'tile' },
-      { name: 'Adobe',           hex: '#c8a060', pat: 'tile' },
-      { name: 'Weatherwood',     hex: '#8b7355', pat: 'tile' },
-      { name: 'Grey Slate',      hex: '#6b7280', pat: 'tile' },
-      { name: 'Mediterranean',   hex: '#b8401e', pat: 'tile' },
-      { name: 'Villa',           hex: '#4a3020', pat: 'tile' },
-      { name: 'Storm Gray',      hex: '#5a6472', pat: 'tile' },
-      { name: 'Terra Cotta',     hex: '#c05030', pat: 'tile' },
-    ]
+    ],
   },
   {
-    id: 'westlake-lake-wales',
-    cat: 'Westlake Lake Wales',
+    id: 'westlake',
+    cat: 'Westlake Concrete Tile',
     mfg: 'Westlake Royal',
     mfgTag: 'Westlake',
-    desc: 'Low-profile S-tile — the classic Florida look. Durable, elegant, energy efficient.',
-    colors: [
-      { name: 'Old Castle',      hex: '#7a5a45', pat: 'tile' },
-      { name: 'Desert Tan',      hex: '#c8a878', pat: 'tile' },
-      { name: 'Adobe',           hex: '#c8a060', pat: 'tile' },
-      { name: 'Weatherwood',     hex: '#8b7355', pat: 'tile' },
-      { name: 'Grey Slate',      hex: '#6b7280', pat: 'tile' },
-      { name: 'Mediterranean',   hex: '#b8401e', pat: 'tile' },
-      { name: 'Villa',           hex: '#4a3020', pat: 'tile' },
-      { name: 'Terra Cotta',     hex: '#c05030', pat: 'tile' },
-    ]
-  },
-  {
-    id: 'westlake-pompano',
-    cat: 'Westlake Pompano',
-    mfg: 'Westlake Royal',
-    mfgTag: 'Westlake',
-    desc: 'Full S-tile profile — the iconic barrel tile silhouette, concrete strong.',
-    colors: [
-      { name: 'Old Castle',      hex: '#7a5a45', pat: 'tile' },
-      { name: 'Desert Tan',      hex: '#c8a878', pat: 'tile' },
-      { name: 'Adobe',           hex: '#c8a060', pat: 'tile' },
-      { name: 'Weatherwood',     hex: '#8b7355', pat: 'tile' },
-      { name: 'Grey Slate',      hex: '#6b7280', pat: 'tile' },
-      { name: 'Mediterranean',   hex: '#b8401e', pat: 'tile' },
-      { name: 'Terra Cotta',     hex: '#c05030', pat: 'tile' },
-      { name: 'Antique',         hex: '#8a7a68', pat: 'tile' },
-    ]
+    desc: 'Fire Class A · wind-rated · same colors available in all three profiles',
+    profiles: [
+      { id: 'okeechobee', name: 'Okeechobee', desc: 'Flat concrete tile — clean, modern look',   pat: 'tile-flat' },
+      { id: 'lake-wales', name: 'Lake Wales',  desc: 'Low-profile S-tile — classic Florida look', pat: 'tile-s'    },
+      { id: 'pompano',    name: 'Pompano',     desc: 'Full barrel S-tile profile',                pat: 'tile'      },
+    ],
+    colors: WESTLAKE_COLORS,
   },
 ];
 
@@ -844,6 +824,8 @@ function swatchCSS(color) {
     'shingle-m': `background:repeating-linear-gradient(180deg,${h} 0,${h} 8px,${dh} 8px,${dh} 10px)`,
     'shake':     `background:repeating-linear-gradient(160deg,${h} 0,${h} 10px,${dh} 10px,${dh} 12px)`,
     'tile':      `background:radial-gradient(ellipse 50% 50% at 30% 30%,${dh} 0%,${h} 65%);background-size:20px 20px`,
+    'tile-flat': `background:repeating-linear-gradient(180deg,${h} 0,${h} 9px,${dh} 9px,${dh} 11px)`,
+    'tile-s':    `background:${h};background-image:repeating-linear-gradient(180deg,${dh} 0,${dh} 1px,transparent 1px,transparent 13px)`,
     'solar':     `background:${h};background-image:repeating-linear-gradient(0deg,rgba(100,150,255,.3) 0,rgba(100,150,255,.3) 1px,transparent 1px,transparent 20px),repeating-linear-gradient(90deg,rgba(100,150,255,.3) 0,rgba(100,150,255,.3) 1px,transparent 1px,transparent 30px)`,
     'skylight':  `background:linear-gradient(135deg,#87ceeb,#b8dff5,#dff0ff)`,
   };
@@ -950,9 +932,38 @@ function drawTexture(pts, color) {
       ri++;
     }
   } else if (color.pat === 'tile') {
-    const rh = Math.max(14, H/11), cw = Math.max(18, W/11);
+    // Full S/barrel tile — overlapping ellipses
+    const rh = Math.max(14, H/10), cw = Math.max(20, W/10);
     for (let y=y0; y<y1; y+=rh) for (let x=x0; x<x1; x+=cw) {
-      ctx.beginPath(); ctx.ellipse(x+cw/2,y+rh/2,cw/2,rh/2,0,0,Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(x+cw/2, y+rh/2, cw/2, rh/2, 0, 0, Math.PI*2); ctx.stroke();
+    }
+  } else if (color.pat === 'tile-flat') {
+    // Flat tile — simple horizontal coursing with staggered joints
+    const rh = Math.max(12, H/14), cw = Math.max(18, W/12);
+    ctx.lineWidth = 1.5;
+    for (let y=y0; y<y1; y+=rh) { ctx.beginPath(); ctx.moveTo(x0,y); ctx.lineTo(x1,y); ctx.stroke(); }
+    ctx.lineWidth = .6;
+    let ri=0;
+    for (let y=y0; y<y1; y+=rh) {
+      const off = (ri%2)*(cw/2);
+      for (let x=x0+off; x<x1; x+=cw) { ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x,y+rh); ctx.stroke(); }
+      ri++;
+    }
+  } else if (color.pat === 'tile-s') {
+    // Low-profile S-tile — shallow S curves stacked in rows
+    const rh = Math.max(13, H/12), cw = Math.max(18, W/11);
+    ctx.lineWidth = 1.2;
+    for (let y=y0; y<y1; y+=rh) {
+      // Row separator
+      ctx.beginPath(); ctx.moveTo(x0,y); ctx.lineTo(x1,y); ctx.stroke();
+      // S-curve details within each row
+      for (let x=x0; x<x1; x+=cw) {
+        const mx = x + cw/2, my = y + rh/2;
+        ctx.beginPath();
+        ctx.moveTo(x, my);
+        ctx.bezierCurveTo(x+cw*.25, y+2, x+cw*.75, y+rh-2, x+cw, my);
+        ctx.stroke();
+      }
     }
   } else if (color.pat === 'solar') {
     const pw = Math.max(28, W/7), ph = Math.max(18, H/5);
@@ -1142,9 +1153,10 @@ document.getElementById('opaSlider').addEventListener('input', e => {
 // ─────────────────────────────────────
 // CATALOG UI
 // ─────────────────────────────────────
+let activeProfile = null; // currently selected profile within a product
+
 function buildCatList() {
   const list = document.getElementById('catList');
-  const TAG_COLORS = { 'Wesley':'#1a3a6a', 'GAF':'#1a5c1a', 'Unified Steel':'#6a1a1a', 'In-Roof':'#6a5a1a' };
   CATALOG.forEach(prod => {
     const btn = document.createElement('button');
     btn.className = 'cat-btn';
@@ -1158,52 +1170,96 @@ function buildCatList() {
 function selectProduct(id) {
   const prod = CATALOG.find(p => p.id === id);
   if (!prod) return;
+
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.id === id));
   document.getElementById('prodCatName').textContent = prod.cat;
   document.getElementById('prodCatDesc').textContent = prod.desc;
-  buildSwatchGrid(prod);
+
+  const profileRow = document.getElementById('profileRow');
+  const profileTabs = document.getElementById('profileTabs');
+
+  if (prod.profiles) {
+    // Build profile tabs
+    profileRow.style.display = 'block';
+    profileTabs.innerHTML = '';
+    prod.profiles.forEach((profile, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'profile-tab';
+      btn.dataset.pid = profile.id;
+      btn.textContent = profile.name;
+      btn.title = profile.desc;
+      btn.addEventListener('click', () => selectProfile(prod, profile));
+      profileTabs.appendChild(btn);
+      if (i === 0) { // auto-select first profile
+        setTimeout(() => selectProfile(prod, profile), 0);
+      }
+    });
+  } else {
+    profileRow.style.display = 'none';
+    activeProfile = null;
+    buildSwatchGrid(prod, prod.colors);
+  }
 }
 
-function buildSwatchGrid(prod) {
+function selectProfile(prod, profile) {
+  activeProfile = profile;
+
+  document.querySelectorAll('.profile-tab').forEach(t =>
+    t.classList.toggle('active', t.dataset.pid === profile.id)
+  );
+
+  // Apply profile's pattern to all colors
+  const colors = prod.colors.map(c => ({ ...c, pat: profile.pat }));
+  buildSwatchGrid(prod, colors, profile);
+
+  // If a color is already selected in this product, re-apply with new pattern
+  if (S.selProduct && S.selProduct.id === prod.id && S.selColor) {
+    const updatedColor = { ...S.selColor, pat: profile.pat };
+    pickColor(prod, updatedColor, profile);
+  }
+}
+
+function buildSwatchGrid(prod, colors, profile) {
   const grid = document.getElementById('prodGrid');
   grid.innerHTML = '';
-  prod.colors.forEach(c => {
+  colors.forEach(c => {
     const card = document.createElement('div');
     card.className = 'swatch-card';
     card.innerHTML = `<div class="swatch-face" style="${swatchCSS(c)}"></div><div class="swatch-lbl">${c.name}</div>`;
     card.addEventListener('click', () => {
       document.querySelectorAll('.swatch-card').forEach(s => s.classList.remove('active'));
       card.classList.add('active');
-      pickColor(prod, c);
+      pickColor(prod, c, profile);
     });
     grid.appendChild(card);
   });
 }
 
-function pickColor(prod, color) {
+function pickColor(prod, color, profile) {
   S.selProduct = prod;
   S.selColor   = color;
 
   const bar = document.getElementById('selBar');
   bar.classList.add('show');
   document.getElementById('selSwatch').style.cssText = swatchCSS(color);
-  document.getElementById('selName').textContent = `${prod.cat} — ${color.name}`;
+
+  const profileLabel = profile ? ` · ${profile.name}` : '';
+  document.getElementById('selName').textContent = `${prod.cat}${profileLabel} — ${color.name}`;
   document.getElementById('selSub').textContent  = `by ${prod.mfg}`;
 
-  // sync lead form dropdown
+  // Sync lead form dropdown
   const sel = document.getElementById('frmProduct');
-  const catLower = prod.cat.toLowerCase();
+  const profileName = (profile?.name || '').toLowerCase();
+  const catLower    = prod.cat.toLowerCase();
   for (const opt of sel.options) {
     const t = opt.text.toLowerCase();
-    if (
-      (catLower.includes('nail strip')  && t.includes('nail strip'))  ||
-      (catLower.includes('snap-lock')   && t.includes('snap-lock'))   ||
-      (catLower.includes('mechanical')  && t.includes('mechanical'))  ||
-      (catLower.includes('hdz')         && t.includes('hdz'))         ||
-      (catLower.includes('okeechobee')  && t.includes('okeechobee'))  ||
-      (catLower.includes('lake wales')  && t.includes('lake wales'))  ||
-      (catLower.includes('pompano')     && t.includes('pompano'))
-    ) { sel.value = opt.value; break; }
+    if (catLower.includes('englert') && profileName.includes('nail strip')  && t.includes('nail strip'))  { sel.value = opt.value; break; }
+    if (catLower.includes('englert') && profileName.includes('snap-lock')   && t.includes('snap-lock'))   { sel.value = opt.value; break; }
+    if (catLower.includes('englert') && profileName.includes('mechanical')  && t.includes('mechanical'))  { sel.value = opt.value; break; }
+    if (catLower.includes('gaf')     && t.includes('hdz'))                                                { sel.value = opt.value; break; }
+    if (catLower.includes('westlake')&& profileName.includes('okeechobee') && t.includes('okeechobee'))  { sel.value = opt.value; break; }
+    if (catLower.includes('westlake')&& profileName.includes('lake wales') && t.includes('lake wales'))  { sel.value = opt.value; break; }
+    if (catLower.includes('westlake')&& profileName.includes('pompano')    && t.includes('pompano'))      { sel.value = opt.value; break; }
   }
 
   advanceStep(3);
@@ -1256,34 +1312,44 @@ document.getElementById('leadForm').addEventListener('submit', async e => {
 // SHOWCASE
 // ─────────────────────────────────────
 function buildShowcase() {
+  // { prodId, profileIdx, colorIdx, label }
   const featured = [
-    {id:'englert-snap-lock',   ci:0}, // Charcoal Gray
-    {id:'englert-mechanical',  ci:1}, // Dark Bronze
-    {id:'englert-nail-strip',  ci:2}, // Galvalume
-    {id:'englert-snap-lock',   ci:6}, // Polar White
-    {id:'gaf-hdz',             ci:0}, // Charcoal
-    {id:'gaf-hdz',             ci:2}, // Weathered Wood
-    {id:'westlake-pompano',    ci:0}, // Old Castle
-    {id:'westlake-lake-wales', ci:5}, // Mediterranean
-    {id:'westlake-okeechobee', ci:4}, // Grey Slate
+    { prodId:'englert',  pi:1, ci:0,  label:'Snap-Lock' },   // Charcoal Gray
+    { prodId:'englert',  pi:1, ci:1,  label:'Snap-Lock' },   // Dark Bronze
+    { prodId:'englert',  pi:0, ci:2,  label:'Nail Strip' },  // Galvalume
+    { prodId:'englert',  pi:1, ci:6,  label:'Snap-Lock' },   // Polar White
+    { prodId:'gaf-hdz',  pi:-1,ci:0,  label:'' },            // Charcoal
+    { prodId:'gaf-hdz',  pi:-1,ci:2,  label:'' },            // Weathered Wood
+    { prodId:'westlake', pi:2, ci:0,  label:'Pompano' },     // Old Castle
+    { prodId:'westlake', pi:1, ci:5,  label:'Lake Wales' },  // Mediterranean
+    { prodId:'westlake', pi:0, ci:4,  label:'Okeechobee' },  // Grey Slate
   ];
   const grid = document.getElementById('showcaseGrid');
-  featured.forEach(({id, ci}) => {
-    const prod  = CATALOG.find(p => p.id === id);
+  featured.forEach(({ prodId, pi, ci, label }) => {
+    const prod    = CATALOG.find(p => p.id === prodId);
     if (!prod) return;
-    const color = prod.colors[ci] || prod.colors[0];
-    const card  = document.createElement('div');
+    const profile = pi >= 0 && prod.profiles ? prod.profiles[pi] : null;
+    const rawColor = prod.colors[ci] || prod.colors[0];
+    const color   = profile ? { ...rawColor, pat: profile.pat } : rawColor;
+    const sublabel = profile ? profile.name : prod.cat;
+
+    const card = document.createElement('div');
     card.className = 'ps-card';
     card.innerHTML = `
       <div class="ps-swatch" style="${swatchCSS(color)}"></div>
       <div class="ps-info">
-        <h4>${prod.cat}</h4>
+        <h4>${sublabel}</h4>
         <p>${color.name}</p>
         <span class="ps-badge">${prod.mfgTag}</span>
       </div>`;
     card.addEventListener('click', () => {
       document.getElementById('visualizer').scrollIntoView({behavior:'smooth'});
-      setTimeout(() => selectProduct(id), 600);
+      setTimeout(() => {
+        selectProduct(prodId);
+        if (profile) {
+          setTimeout(() => selectProfile(prod, profile), 100);
+        }
+      }, 500);
     });
     grid.appendChild(card);
   });
@@ -1294,7 +1360,7 @@ function buildShowcase() {
 // ─────────────────────────────────────
 buildCatList();
 buildShowcase();
-selectProduct('englert-snap-lock'); // default selection
+selectProduct('englert'); // default — shows Englert with profile tabs
 </script>
 </body>
 </html>
