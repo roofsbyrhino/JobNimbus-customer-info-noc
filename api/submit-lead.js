@@ -1,8 +1,7 @@
 const { sendEmail } = require('../lib/email');
 
 const LEAD_TO = process.env.LEAD_EMAIL
-  || process.env.SALES_MANAGER_EMAIL
-  || process.env.COO_EMAIL;
+  || 'info@roofsbyrhino.com';
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,7 +27,8 @@ module.exports = async (req, res) => {
   console.log(`[submit-lead] New lead: ${name} | ${phone} | ${email} | ${product}`);
 
   if (!LEAD_TO) {
-    console.warn('[submit-lead] No LEAD_EMAIL set — lead logged but not emailed');
+    // Should not happen — info@roofsbyrhino.com is the default above
+    console.warn('[submit-lead] No lead email resolved — lead logged only');
     return res.status(200).json({ success: true });
   }
 

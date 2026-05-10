@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180" role="img" aria-label="Rhino Roofs Logo">
+  <!-- Horn -->
+  <path d="M 58,88 L 8,30 L 62,68 Z" fill="#c06010"/>
+
+  <!-- Main head silhouette (profile facing left, horn on left) -->
+  <path d="
+    M 58,88
+    C 54,78 54,64 62,52
+    C 70,40 84,30 102,26
+    C 122,20 148,22 164,36
+    C 178,48 182,66 176,82
+    C 172,94 162,102 150,106
+    C 162,120 164,138 156,150
+    C 146,162 130,164 118,156
+    C 106,164 88,166 74,154
+    C 58,140 54,118 62,100
+    C 60,96 59,92 58,88 Z
+  " fill="#F07E26"/>
+
+  <!-- Ear (upper right of head) -->
+  <path d="M 164,36 L 176,10 L 188,34 Z" fill="#c06010"/>
+
+  <!-- Brow ridge shadow -->
+  <path d="M 102,26 C 118,22 140,24 158,34 C 148,28 130,26 112,30 Z" fill="#d96b15" opacity="0.5"/>
+
+  <!-- Eye -->
+  <circle cx="148" cy="58" r="13" fill="#1a1a1a"/>
+  <circle cx="152" cy="54" r="5" fill="white"/>
+  <circle cx="153" cy="54" r="2" fill="#1a1a1a"/>
+
+  <!-- Nostril -->
+  <ellipse cx="68" cy="100" rx="9" ry="5" fill="#c06010" transform="rotate(-25 68 100)"/>
+
+  <!-- Lower jaw line for definition -->
+  <path d="M 74,154 C 64,148 58,136 60,122 C 62,110 70,104 80,106" fill="none" stroke="#d96b15" stroke-width="3" stroke-linecap="round"/>
+</svg>

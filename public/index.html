@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rhino Roof Visualizer — Free 3D Design | RoofsbyRhino</title>
-  <meta name="description" content="Visualize your new roof before installation. Choose metal roofing, GAF shingles, Unified Steel, or Wesley products. Get a free 3D design from Rhino Roofs.">
+  <meta name="description" content="Visualize your new roof before installation. Choose Englert metal panels, GAF Timberline HDZ shingles, or Westlake concrete tile. Get a free 3D design from Rhino Roofs.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -46,12 +46,13 @@
     }
     .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .logo-icon {
-      width: 42px; height: 42px;
+      width: 48px; height: 48px;
       background: var(--orange);
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
+      overflow: hidden; flex-shrink: 0;
     }
+    .logo-icon img { width: 38px; height: 38px; object-fit: contain; filter: brightness(0) invert(1); }
     .logo-text strong { display: block; color: #fff; font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
     .logo-text span   { font-size: 11px; color: var(--orange); text-transform: uppercase; letter-spacing: 1.2px; }
     .hdr-cta {
@@ -416,7 +417,9 @@
 ══════════════════════════════════════ -->
 <header>
   <a href="#" class="logo">
-    <div class="logo-icon">🦏</div>
+    <div class="logo-icon">
+      <img src="/assets/rhino-logo.svg" alt="Rhino Roofs" onerror="this.parentElement.textContent='🦏'">
+    </div>
     <div class="logo-text">
       <strong>Rhino Roofs</strong>
       <span>Roof Visualizer</span>
@@ -432,7 +435,7 @@
   <div class="hero-inner">
     <div class="hero-badge">🎯 Free Tool — No Obligation</div>
     <h1>See Your New Roof<br><em>Before We Install It</em></h1>
-    <p>Upload a photo of your home and instantly visualize metal roofing, GAF shingles, or Unified Steel. Then claim your free 3D design.</p>
+    <p>Upload a photo of your home and instantly visualize Englert metal panels, GAF Timberline HDZ shingles, or Westlake concrete tile. Then claim your free 3D design.</p>
     <div class="hero-btns">
       <a href="#visualizer" class="btn-primary">🏠 Start Visualizing</a>
       <a href="#lead-form" class="btn-ghost">📐 Free 3D Design</a>
@@ -443,8 +446,8 @@
 <!-- TRUST BAR -->
 <div class="trust">
   <div class="trust-item"><b>✓</b> GAF Certified Contractor</div>
-  <div class="trust-item"><b>✓</b> Unified Steel Authorized Dealer</div>
-  <div class="trust-item"><b>✓</b> Wesley Products Installer</div>
+  <div class="trust-item"><b>✓</b> Englert Authorized Installer</div>
+  <div class="trust-item"><b>✓</b> Westlake Tile Dealer</div>
   <div class="trust-item"><b>✓</b> Licensed &amp; Insured — Florida</div>
   <div class="trust-item"><b>✓</b> 500+ Roofs Completed</div>
 </div>
@@ -630,18 +633,19 @@
                 <label class="f-lbl">Interested In</label>
                 <select class="f-inp" name="roofingType" id="frmProduct">
                   <option value="">Select type...</option>
-                  <option>Standing Seam Metal</option>
-                  <option>Metal Shake — Unified Steel</option>
-                  <option>Metal Tile — Unified Steel</option>
-                  <option>Metal Shingle — Unified Steel</option>
-                  <option>R-Panel / Corrugated — Wesley</option>
-                  <option>5V Crimp Metal — Wesley</option>
-                  <option>GAF Timberline HDZ</option>
-                  <option>GAF Timberline CS (Cool)</option>
-                  <option>GAF Camelot II</option>
-                  <option>GAF Grand Canyon</option>
-                  <option>In-Roof Solar System</option>
-                  <option>In-Roof Skylight System</option>
+                  <optgroup label="── Englert Metal Panels ──">
+                    <option>Englert 1" Nail Strip Panel</option>
+                    <option>Englert 1.5" Snap-Lock w/ Clip</option>
+                    <option>Englert 1.5" Mechanical Seam</option>
+                  </optgroup>
+                  <optgroup label="── GAF Shingles ──">
+                    <option>GAF Timberline HDZ</option>
+                  </optgroup>
+                  <optgroup label="── Westlake Concrete Tile ──">
+                    <option>Westlake Okeechobee (Flat Tile)</option>
+                    <option>Westlake Lake Wales (Low S-Tile)</option>
+                    <option>Westlake Pompano (S-Tile)</option>
+                  </optgroup>
                   <option>Not sure — need consultation</option>
                 </select>
               </div>
@@ -683,15 +687,15 @@
   <div class="showcase-inner">
     <div class="sec-label">Our Products</div>
     <h2 class="sec-title">Premium Roofing Systems We Install</h2>
-    <p class="sec-desc">All products backed by manufacturer warranties. GAF certified. Unified Steel authorized. Wesley trained.</p>
+    <p class="sec-desc">All products backed by manufacturer warranties. GAF certified. Englert authorized. Westlake approved dealer.</p>
     <div class="prod-showcase" id="showcaseGrid"></div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p><strong>Rhino Roofs</strong> · Licensed &amp; Insured · GAF Certified · Unified Steel Authorized · Wesley Products Installer</p>
-  <p style="margin-top:6px;">© 2025 <a href="https://roofsbyrhino.com">RoofsbyRhino.com</a> · <a href="tel:+1-407-555-0000">Call Us</a> · <a href="#lead-form">Free Quote</a></p>
+  <p><strong>Rhino Roofs</strong> · Licensed &amp; Insured · GAF Certified · Englert Authorized Installer · Westlake Concrete Tile Dealer</p>
+  <p style="margin-top:6px;">© 2025 <a href="https://roofsbyrhino.com">RoofsbyRhino.com</a> · <a href="mailto:info@roofsbyrhino.com">info@roofsbyrhino.com</a> · <a href="#lead-form">Free 3D Design</a></p>
 </footer>
 
 <!-- ══════════════════════════════════════
@@ -699,172 +703,124 @@
 ══════════════════════════════════════ -->
 <script>
 // ─────────────────────────────────────
-// PRODUCT CATALOG
+// PRODUCT CATALOG — Rhino Roofs actual products
 // ─────────────────────────────────────
+// Shared Englert color palette (all three panel systems use the same color line)
+const ENGLERT_COLORS_SEAM = [
+  { name: 'Charcoal Gray',  hex: '#4a4a52', pat: 'seam' },
+  { name: 'Dark Bronze',    hex: '#3d2b1f', pat: 'seam' },
+  { name: 'Galvalume',      hex: '#b8b8b8', pat: 'seam' },
+  { name: 'Slate Blue',     hex: '#3a5f8a', pat: 'seam' },
+  { name: 'Evergreen',      hex: '#2d5a27', pat: 'seam' },
+  { name: 'Burgundy',       hex: '#6e2535', pat: 'seam' },
+  { name: 'Polar White',    hex: '#e8e8e4', pat: 'seam' },
+  { name: 'Musket Gray',    hex: '#7a7a78', pat: 'seam' },
+  { name: 'Light Stone',    hex: '#c8b896', pat: 'seam' },
+  { name: 'Colonial Red',   hex: '#8b3535', pat: 'seam' },
+];
+const ENGLERT_COLORS_STRIP = ENGLERT_COLORS_SEAM.map(c => ({ ...c, pat: 'corrugated' }));
+
 const CATALOG = [
+  // ── ENGLERT METAL ──
   {
-    id: 'standing-seam',
-    cat: 'Standing Seam Metal',
-    mfg: 'Wesley / Metal Sales',
-    mfgTag: 'Wesley',
-    desc: 'Premium concealed fastener panel. Wind resistant, Florida-code rated.',
-    colors: [
-      { name: 'Charcoal Gray',   hex: '#4a4a52', pat: 'seam' },
-      { name: 'Dark Bronze',     hex: '#3d2b1f', pat: 'seam' },
-      { name: 'Galvalume Plus',  hex: '#b5b5b5', pat: 'seam' },
-      { name: 'Slate Blue',      hex: '#3a5f8a', pat: 'seam' },
-      { name: 'Forest Green',    hex: '#2d5a27', pat: 'seam' },
-      { name: 'Fireside Red',    hex: '#8b3535', pat: 'seam' },
-      { name: 'Ivory White',     hex: '#e5e1d8', pat: 'seam' },
-      { name: 'Burnished Slate', hex: '#5a6472', pat: 'seam' },
-    ]
+    id: 'englert-nail-strip',
+    cat: '1" Nail Strip Panel',
+    mfg: 'Englert',
+    mfgTag: 'Englert',
+    desc: 'Exposed fastener nail strip panel — economical, fast install, Florida NOA rated.',
+    colors: ENGLERT_COLORS_STRIP,
   },
   {
-    id: 'r-panel',
-    cat: 'R-Panel / 5V Crimp',
-    mfg: 'Wesley Industries',
-    mfgTag: 'Wesley',
-    desc: 'Exposed fastener panel — commercial grade, budget-friendly, proven performer.',
-    colors: [
-      { name: 'Galvalume',   hex: '#b5b5b5', pat: 'corrugated' },
-      { name: 'Charcoal',    hex: '#484848', pat: 'corrugated' },
-      { name: 'Burgundy',    hex: '#6e2d35', pat: 'corrugated' },
-      { name: 'Evergreen',   hex: '#3a6b34', pat: 'corrugated' },
-      { name: 'Slate Blue',  hex: '#3a5f8a', pat: 'corrugated' },
-      { name: 'White',       hex: '#eeeeee', pat: 'corrugated' },
-      { name: 'Cream',       hex: '#e8d9b4', pat: 'corrugated' },
-    ]
+    id: 'englert-snap-lock',
+    cat: '1.5" Snap-Lock w/ Clip',
+    mfg: 'Englert',
+    mfgTag: 'Englert',
+    desc: 'Concealed fastener snap-lock panel with floating clip system. Clean look, no exposed screws.',
+    colors: ENGLERT_COLORS_SEAM,
   },
   {
-    id: 'metal-shake',
-    cat: 'Metal Shake',
-    mfg: 'Unified Steel',
-    mfgTag: 'Unified Steel',
-    desc: 'Stone-coated steel with authentic shake profile. Class 4 impact rated.',
-    colors: [
-      { name: 'Charcoal',     hex: '#3a3a3a', pat: 'shake' },
-      { name: 'Brown',        hex: '#6b4423', pat: 'shake' },
-      { name: 'Terra Cotta',  hex: '#b8401e', pat: 'shake' },
-      { name: 'Weatherwood',  hex: '#8b7355', pat: 'shake' },
-      { name: 'Midnight',     hex: '#1a1a2a', pat: 'shake' },
-    ]
+    id: 'englert-mechanical',
+    cat: '1.5" Mechanical Seam',
+    mfg: 'Englert',
+    mfgTag: 'Englert',
+    desc: 'Field-mechanically seamed panel — the strongest concealed fastener system for low-slope applications.',
+    colors: ENGLERT_COLORS_SEAM,
   },
-  {
-    id: 'metal-tile',
-    cat: 'Metal Tile',
-    mfg: 'Unified Steel',
-    mfgTag: 'Unified Steel',
-    desc: 'Stone-coated steel with Mediterranean tile look. Half the weight of concrete.',
-    colors: [
-      { name: 'Charcoal',    hex: '#3a3a3a', pat: 'tile' },
-      { name: 'Brown',       hex: '#6b4423', pat: 'tile' },
-      { name: 'Terra Cotta', hex: '#b8401e', pat: 'tile' },
-      { name: 'Pewter',      hex: '#6b7280', pat: 'tile' },
-      { name: 'Sage Green',  hex: '#4a7a5a', pat: 'tile' },
-    ]
-  },
-  {
-    id: 'metal-shingle',
-    cat: 'Metal Shingle',
-    mfg: 'Unified Steel',
-    mfgTag: 'Unified Steel',
-    desc: 'Stone-coated steel shingle — looks like asphalt, lasts 50+ years.',
-    colors: [
-      { name: 'Charcoal',      hex: '#3a3a3a', pat: 'shingle-m' },
-      { name: 'Champagne',     hex: '#c5a55a', pat: 'shingle-m' },
-      { name: 'Victorian Red', hex: '#8b3535', pat: 'shingle-m' },
-      { name: 'Weatherwood',   hex: '#8b7355', pat: 'shingle-m' },
-    ]
-  },
-  {
-    id: 'in-roof-solar',
-    cat: 'In-Roof Solar',
-    mfg: 'In-Roof Systems',
-    mfgTag: 'In-Roof',
-    desc: 'Flush-mounted solar panels integrated into the roof deck with weathertight collar.',
-    colors: [
-      { name: 'Solar Black',     hex: '#1a1a2e', pat: 'solar' },
-      { name: 'Solar Dark Blue', hex: '#162040', pat: 'solar' },
-    ]
-  },
-  {
-    id: 'in-roof-skylight',
-    cat: 'In-Roof Skylight',
-    mfg: 'In-Roof Systems',
-    mfgTag: 'In-Roof',
-    desc: 'In-roof skylights with integrated weathertight collar — flood interiors with light.',
-    colors: [
-      { name: 'Clear',       hex: '#87ceeb', pat: 'skylight' },
-      { name: 'Bronze Tint', hex: '#a07850', pat: 'skylight' },
-    ]
-  },
-  {
-    id: 'in-roof-vent',
-    cat: 'In-Roof Ventilation',
-    mfg: 'In-Roof Systems',
-    mfgTag: 'In-Roof',
-    desc: 'Integrated ridge and in-deck ventilation collars for peak attic performance.',
-    colors: [
-      { name: 'Galvalume',   hex: '#b5b5b5', pat: 'corrugated' },
-      { name: 'Dark Bronze', hex: '#3d2b1f', pat: 'corrugated' },
-    ]
-  },
+  // ── GAF SHINGLES ──
   {
     id: 'gaf-hdz',
     cat: 'GAF Timberline HDZ',
     mfg: 'GAF',
     mfgTag: 'GAF',
-    desc: "America's #1 selling shingle. LayerLock technology — 130 mph wind rated.",
+    desc: "America's #1 selling shingle. LayerLock technology — 130 mph wind rated, Lifetime warranty.",
     colors: [
-      { name: 'Charcoal',       hex: '#3d3d3d', pat: 'shingle-a' },
-      { name: 'Pewter Gray',    hex: '#7a7a7a', pat: 'shingle-a' },
-      { name: 'Weathered Wood', hex: '#8b7355', pat: 'shingle-a' },
-      { name: 'Barkwood',       hex: '#6b5a3e', pat: 'shingle-a' },
-      { name: 'Fox Hollow Gray',hex: '#6b7280', pat: 'shingle-a' },
-      { name: 'Oyster Gray',    hex: '#b0a898', pat: 'shingle-a' },
-      { name: 'Shakewood',      hex: '#7a6452', pat: 'shingle-a' },
-      { name: 'Slate',          hex: '#5a6472', pat: 'shingle-a' },
+      { name: 'Charcoal',        hex: '#3d3d3d', pat: 'shingle-a' },
+      { name: 'Pewter Gray',     hex: '#7a7a7a', pat: 'shingle-a' },
+      { name: 'Weathered Wood',  hex: '#8b7355', pat: 'shingle-a' },
+      { name: 'Barkwood',        hex: '#6b5a3e', pat: 'shingle-a' },
+      { name: 'Fox Hollow Gray', hex: '#6b7280', pat: 'shingle-a' },
+      { name: 'Oyster Gray',     hex: '#b0a898', pat: 'shingle-a' },
+      { name: 'Shakewood',       hex: '#7a6452', pat: 'shingle-a' },
+      { name: 'Slate',           hex: '#5a6472', pat: 'shingle-a' },
+      { name: 'Hickory',         hex: '#5a4535', pat: 'shingle-a' },
+      { name: 'Hunter Green',    hex: '#2d4a30', pat: 'shingle-a' },
+      { name: 'Mission Brown',   hex: '#5a3820', pat: 'shingle-a' },
+      { name: 'Birchwood',       hex: '#9a8a7a', pat: 'shingle-a' },
+    ]
+  },
+  // ── WESTLAKE CONCRETE TILE ──
+  {
+    id: 'westlake-okeechobee',
+    cat: 'Westlake Okeechobee',
+    mfg: 'Westlake Royal',
+    mfgTag: 'Westlake',
+    desc: 'Flat concrete tile profile — clean, modern look. Fire Class A, Florida approved.',
+    colors: [
+      { name: 'Old Castle',      hex: '#7a5a45', pat: 'tile' },
+      { name: 'Desert Tan',      hex: '#c8a878', pat: 'tile' },
+      { name: 'Adobe',           hex: '#c8a060', pat: 'tile' },
+      { name: 'Weatherwood',     hex: '#8b7355', pat: 'tile' },
+      { name: 'Grey Slate',      hex: '#6b7280', pat: 'tile' },
+      { name: 'Mediterranean',   hex: '#b8401e', pat: 'tile' },
+      { name: 'Villa',           hex: '#4a3020', pat: 'tile' },
+      { name: 'Storm Gray',      hex: '#5a6472', pat: 'tile' },
+      { name: 'Terra Cotta',     hex: '#c05030', pat: 'tile' },
     ]
   },
   {
-    id: 'gaf-cs',
-    cat: 'GAF Timberline CS',
-    mfg: 'GAF',
-    mfgTag: 'GAF',
-    desc: 'Energy Star Cool Series — reflects solar heat, lowers AC costs.',
+    id: 'westlake-lake-wales',
+    cat: 'Westlake Lake Wales',
+    mfg: 'Westlake Royal',
+    mfgTag: 'Westlake',
+    desc: 'Low-profile S-tile — the classic Florida look. Durable, elegant, energy efficient.',
     colors: [
-      { name: 'Charcoal',       hex: '#3d3d3d', pat: 'shingle-a' },
-      { name: 'Weathered Wood', hex: '#8b7355', pat: 'shingle-a' },
-      { name: 'Pewter Gray',    hex: '#7a7a7a', pat: 'shingle-a' },
-      { name: 'Oyster Gray',    hex: '#b0a898', pat: 'shingle-a' },
+      { name: 'Old Castle',      hex: '#7a5a45', pat: 'tile' },
+      { name: 'Desert Tan',      hex: '#c8a878', pat: 'tile' },
+      { name: 'Adobe',           hex: '#c8a060', pat: 'tile' },
+      { name: 'Weatherwood',     hex: '#8b7355', pat: 'tile' },
+      { name: 'Grey Slate',      hex: '#6b7280', pat: 'tile' },
+      { name: 'Mediterranean',   hex: '#b8401e', pat: 'tile' },
+      { name: 'Villa',           hex: '#4a3020', pat: 'tile' },
+      { name: 'Terra Cotta',     hex: '#c05030', pat: 'tile' },
     ]
   },
   {
-    id: 'gaf-camelot',
-    cat: 'GAF Camelot II',
-    mfg: 'GAF',
-    mfgTag: 'GAF',
-    desc: 'Designer laminated shingle with genuine slate appearance and shadow depth.',
+    id: 'westlake-pompano',
+    cat: 'Westlake Pompano',
+    mfg: 'Westlake Royal',
+    mfgTag: 'Westlake',
+    desc: 'Full S-tile profile — the iconic barrel tile silhouette, concrete strong.',
     colors: [
-      { name: 'Royal Slate',    hex: '#5a6472', pat: 'shingle-a' },
-      { name: 'Antique Slate',  hex: '#7a8490', pat: 'shingle-a' },
-      { name: 'Charcoal',       hex: '#3d3d3d', pat: 'shingle-a' },
-      { name: 'Weathered Wood', hex: '#8b7355', pat: 'shingle-a' },
+      { name: 'Old Castle',      hex: '#7a5a45', pat: 'tile' },
+      { name: 'Desert Tan',      hex: '#c8a878', pat: 'tile' },
+      { name: 'Adobe',           hex: '#c8a060', pat: 'tile' },
+      { name: 'Weatherwood',     hex: '#8b7355', pat: 'tile' },
+      { name: 'Grey Slate',      hex: '#6b7280', pat: 'tile' },
+      { name: 'Mediterranean',   hex: '#b8401e', pat: 'tile' },
+      { name: 'Terra Cotta',     hex: '#c05030', pat: 'tile' },
+      { name: 'Antique',         hex: '#8a7a68', pat: 'tile' },
     ]
   },
-  {
-    id: 'gaf-grand-canyon',
-    cat: 'GAF Grand Canyon',
-    mfg: 'GAF',
-    mfgTag: 'GAF',
-    desc: 'Premium layered shingles — dramatic shadow lines with natural wood shake look.',
-    colors: [
-      { name: 'Charcoal',         hex: '#3d3d3d', pat: 'shingle-a' },
-      { name: 'Weathered Timber', hex: '#8b7355', pat: 'shingle-a' },
-      { name: 'Storm Cloud Gray', hex: '#6b7280', pat: 'shingle-a' },
-      { name: 'Amber',            hex: '#c5a55a', pat: 'shingle-a' },
-    ]
-  }
 ];
 
 // ─────────────────────────────────────
@@ -1236,10 +1192,18 @@ function pickColor(prod, color) {
 
   // sync lead form dropdown
   const sel = document.getElementById('frmProduct');
+  const catLower = prod.cat.toLowerCase();
   for (const opt of sel.options) {
-    if (opt.text.toLowerCase().includes(prod.cat.split(' ')[0].toLowerCase())) {
-      sel.value = opt.value; break;
-    }
+    const t = opt.text.toLowerCase();
+    if (
+      (catLower.includes('nail strip')  && t.includes('nail strip'))  ||
+      (catLower.includes('snap-lock')   && t.includes('snap-lock'))   ||
+      (catLower.includes('mechanical')  && t.includes('mechanical'))  ||
+      (catLower.includes('hdz')         && t.includes('hdz'))         ||
+      (catLower.includes('okeechobee')  && t.includes('okeechobee'))  ||
+      (catLower.includes('lake wales')  && t.includes('lake wales'))  ||
+      (catLower.includes('pompano')     && t.includes('pompano'))
+    ) { sel.value = opt.value; break; }
   }
 
   advanceStep(3);
@@ -1293,10 +1257,15 @@ document.getElementById('leadForm').addEventListener('submit', async e => {
 // ─────────────────────────────────────
 function buildShowcase() {
   const featured = [
-    {id:'standing-seam', ci:0}, {id:'metal-shake', ci:2},
-    {id:'metal-tile', ci:1},    {id:'gaf-hdz', ci:0},
-    {id:'gaf-grand-canyon', ci:1}, {id:'in-roof-solar', ci:0},
-    {id:'r-panel', ci:1},       {id:'gaf-camelot', ci:0},
+    {id:'englert-snap-lock',   ci:0}, // Charcoal Gray
+    {id:'englert-mechanical',  ci:1}, // Dark Bronze
+    {id:'englert-nail-strip',  ci:2}, // Galvalume
+    {id:'englert-snap-lock',   ci:6}, // Polar White
+    {id:'gaf-hdz',             ci:0}, // Charcoal
+    {id:'gaf-hdz',             ci:2}, // Weathered Wood
+    {id:'westlake-pompano',    ci:0}, // Old Castle
+    {id:'westlake-lake-wales', ci:5}, // Mediterranean
+    {id:'westlake-okeechobee', ci:4}, // Grey Slate
   ];
   const grid = document.getElementById('showcaseGrid');
   featured.forEach(({id, ci}) => {
@@ -1325,7 +1294,7 @@ function buildShowcase() {
 // ─────────────────────────────────────
 buildCatList();
 buildShowcase();
-selectProduct('standing-seam'); // default selection
+selectProduct('englert-snap-lock'); // default selection
 </script>
 </body>
 </html>
